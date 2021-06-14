@@ -1,0 +1,21 @@
+
+.container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-nav .navbar{
+    background: hsl(140, 87%, 78%);
+}
+.sourse-img{
+    width: 40px;
+    height: auto;
+}
+.title{
+    font-size: 24px;
+}
+.section{
+    
+    background: hsl(300, 73%, 88%);
+}
