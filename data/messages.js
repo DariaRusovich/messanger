@@ -448,5 +448,6 @@ const DATA = [
     "avatar": "https://robohash.org/eosquosquo.jpg?size=50x50&set=set1",
     "date": "1607373972000",
     "seen": false
+    
   }
 ]

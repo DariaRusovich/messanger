@@ -1,4 +1,4 @@
-const DATA = [
+const DATA = JSON.stringify([
   {
     "id": 1,
     "phone": "+63 (924) 979-2252",
@@ -450,3 +450,4 @@ const DATA = [
     "seen": false
   }
 ]
+)

@@ -8,9 +8,13 @@
 .header-nav .navbar{
     background: hsl(140, 87%, 78%);
 }
-.sourse-img{
-    width: 40px;
-    height: auto;
+.reload-btn{
+    background: transparent;
+    border: transparent;
+    padding: 10px;
+}
+.reload-btn i{
+    font-size: 32px;
 }
 .title{
     font-size: 24px;
