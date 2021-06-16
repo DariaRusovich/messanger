@@ -15,6 +15,17 @@ const cardMessegeList = document.getElementById('cardMessegeList')
 // "date": "1609595510000",
 // "seen": false
 
+renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
+
+
+function createCardsHTML(cardsArray) {
+  let cardsHTML = ''
+  cardsArray.forEach(card => {
+    cardsHTML += createCard(card)  //в каждую итерацию в cardsHTML каждый раз добавлять строку возвращенную функцией
+  })
+  return cardsHTML;
+}
+
 
 //renderMessegeCards получает то, что вставлять(cardHTML) и получает элем куда вставлять (cardListElem)
 function renderMessegeCards(cardHTML, cardListElem){
@@ -22,10 +33,14 @@ function renderMessegeCards(cardHTML, cardListElem){
 }
 
 function createCard(messegeData){
-    return `<div
+    return `<div class = "card-wrapper row text-center pt-4 pb-4 align-items-start">
+    <div
     class="user col-3 d-flex align-items-end"
     >
     <img
+    width = "1"
+    height = "1"
+    loading = "lazy"
       class="card-data-img"
       src="${messegeData.avatar}"
       alt="${messegeData.name}"
@@ -37,13 +52,13 @@ function createCard(messegeData){
     </div>
     <div class="messege col-6">
     <p class="text mb-0 text-start">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-      aspernatur ab a corrupti. Corporis, praesentium!
+      ${messegeData.text}
     </p>
     </div>
     <div class="time-date col-3 d-flex align-items-center justify-content-center">
     <div class="tame">11.00</div>
     <div class="date ms-4">01.12.2020</div>
+    </div>
     </div>`;
 }
 
