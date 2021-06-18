@@ -27,3 +27,7 @@
     
     background: hsl(300, 73%, 88%);
 }
+
+.unseen{
+    font-weight: bold;
+}
