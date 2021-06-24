@@ -17,13 +17,24 @@
   <body>
     <header class="header-nav">
       <nav class="navbar navbar-light">
-        <div class="container d-flex justify-content-start">
+        <div class="container d-flex justify-content-between">
           <button class="reload-btn" value="Reload Page" aria-label="Reload Page" id="reloadBtn">
             <i class="bi bi-arrow-repeat"></i>
           </button>
          
-          <div class="title ms-5 g-0">Сообщений: <span id="allCount"></span></div>
-          <div class="title ms-5">Непрочитанных: <span id="unreadCount"></span></div>
+         
+         
+         
+            <div class="title ms-5 g-0">Сообщений: <span id="allCount"></span></div>
+            <div class="title ms-5">Непрочитанных: <span id="unreadCount"></span></div>
+           
+          
+          <form class="d-flex" id="searchForm">
+            <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search messages">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        
+         
         </div>
       </nav>
     </header>

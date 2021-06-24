@@ -1,11 +1,46 @@
 let cardsMessegeData = JSON.parse(DATA); //JSON глобальный обьект
 const cardMessegeList = document.getElementById("cardMessegeList");
 const reloadBtn = document.getElementById("reloadBtn");
-const allCount = document.getElementById('allCount')
-const unreadCount = document.getElementById('unreadCount')
+const allCount = document.getElementById("allCount");
+const unreadCount = document.getElementById("unreadCount");
+const searchForm = document.getElementById("searchForm");
 
 //console.log(DATA);
 //console.log(cardData);
+
+ //используется обычная функция для'this' (ссылается на контекст (searchForm))
+searchForm.addEventListener("submit", function (e) {
+  e.preventDefault(); //предотвратить дефолтное поведение
+  const query = this.search.value.trim().toLowerCase().split(' ').filter(word => !!word)
+  const searchFields = ['name', 'phone']
+  const filteredMessage = searchMessages(query, searchFields, cardsMessegeData)
+  console.log(searchMessages(query, searchFields, cardsMessegeData));
+  //console.log(query);
+  //console.log("submit");
+  //console.log(this.search.value);
+  renderMessegeCards(createCardsHTML(filteredMessage), cardMessegeList);
+});
+
+
+function searchMessages(query, fields, messages){    //параметры: (запрос, ключи(поля), массив сообщений)
+  
+  const filteredMessege = messages.filter( message => {
+    return query.every(word => {  //результат фильтра будет равен методу every(каждый) пробежавшемуся по словам в запросе(query)
+      return fields.some(field => {  //основная проверка
+        //console.log('itaration');
+        return message[field]?.trim()?.toLowerCase()?.includes(word)
+       
+      })        
+    })
+  })
+
+
+  return filteredMessege
+}
+
+
+
+
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
   hour: "2-digit",
   minute: "2-digit",
@@ -17,23 +52,25 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 });
 
 reloadBtn.addEventListener("click", (event) => {
-  cardsMessegeData = JSON.parse(DATA)
+  cardsMessegeData = JSON.parse(DATA);
   renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
 });
-cardMessegeList.addEventListener('click', event => {
-  const messageText = event.target.closest('.text')
+cardMessegeList.addEventListener("click", (event) => {
+  const messageText = event.target.closest(".text");
   if (messageText) {
-    const messageId = messageText.closest('.card-wrapper').dataset.id
-    const messageIdx = cardsMessegeData.findIndex(message => message.id == messageId)
-    const message = cardsMessegeData[messageIdx]
+    const messageId = messageText.closest(".card-wrapper").dataset.id;
+    const messageIdx = cardsMessegeData.findIndex(
+      (message) => message.id == messageId
+    );
+    const message = cardsMessegeData[messageIdx];
     if (message.seen) {
-      cardsMessegeData.splice(messageIdx, 1)
-    } else{
-      message.seen = true
+      cardsMessegeData.splice(messageIdx, 1);
+    } else {
+      message.seen = true;
     }
     renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
   }
-})
+});
 
 // "id": 1,
 // "phone": "+63 (924) 979-2252",
@@ -50,8 +87,10 @@ cardMessegeList.addEventListener('click', event => {
 renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
 
 function createCardsHTML(cardsArray) {
-  allCount.textContent = cardsArray.length
-  unreadCount.textContent = cardsArray.filter(message => !message.seen).length
+  allCount.textContent = cardsArray.length;
+  unreadCount.textContent = cardsArray.filter(
+    (message) => !message.seen
+  ).length;
   let cardsHTML = "";
   cardsArray.sort((a, b) => {
     return a.seen - b.seen || b.date - a.date;
@@ -67,9 +106,10 @@ function renderMessegeCards(cardHTML, cardListElem) {
   cardListElem.innerHTML = cardHTML; //insertAdjacentHTML метод у любого узла, принимает два парам, куда вставлять и строку с html
 }
 
-
 function createCard(messegeData) {
-  return `<div class = "card-wrapper row text-center pt-4 pb-4 align-items-start ${!messegeData.seen ? 'unseen' : ''}" data-id="${messegeData.id}">
+  return `<div class = "card-wrapper row text-center pt-4 pb-4 align-items-start ${
+    !messegeData.seen ? "unseen" : ""
+  }" data-id="${messegeData.id}">
     <div
     class="user col-3 d-flex align-items-end"
     >
@@ -103,5 +143,3 @@ function createCard(messegeData) {
 //a = [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 //a.sort((x, y) => Number(x) - Number(y));
 //console.log(a);
-
-
