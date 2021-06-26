@@ -6,6 +6,17 @@ const unreadCount = document.getElementById("unreadCount");
 const searchForm = document.getElementById("searchForm");
 const modalBackdrop = document.getElementById("modalBackdrop");
 const closeModalBtn = document.getElementById("closeModalBtn");
+const modalWindow = document.getElementById("modalWindow");
+
+const timeFormatter = new Intl.DateTimeFormat(undefined, {
+  hour: "2-digit",
+  minute: "2-digit",
+});
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  day: "2-digit",
+  month: "2-digit",
+  year: "2-digit",
+});
 
 //console.log(DATA);
 //console.log(cardData);
@@ -43,15 +54,6 @@ function searchMessages(query, fields, messages) {
   return filteredMessege;
 }
 
-const timeFormatter = new Intl.DateTimeFormat(undefined, {
-  hour: "2-digit",
-  minute: "2-digit",
-});
-const dateFormatter = new Intl.DateTimeFormat(undefined, {
-  day: "2-digit",
-  month: "2-digit",
-  year: "2-digit",
-});
 
 reloadBtn.addEventListener("click", (event) => {
   cardsMessegeData = JSON.parse(DATA);
@@ -111,6 +113,12 @@ function closeModal() {
 // "date": "1609595510000",
 // "seen": false
 
+
+
+
+
+
+
 renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
 
 function createCardsHTML(cardsArray) {
@@ -128,9 +136,10 @@ function createCardsHTML(cardsArray) {
   return cardsHTML;
 }
 
+
 //renderMessegeCards получает то, что вставлять(cardHTML) и получает элем куда вставлять (cardListElem)
 function renderMessegeCards(cardHTML, cardListElem) {
-  cardListElem.innerHTML = cardHTML; //insertAdjacentHTML метод у любого узла, принимает два парам, куда вставлять и строку с html
+  cardListElem.innerHTML = cardHTML; // принимает два парам, куда вставлять и строку с html
 }
 
 function createCard(messegeData) {
@@ -149,7 +158,7 @@ function createCard(messegeData) {
       alt="${messegeData.name}"
     />
     <div class="user-info  ms-3">
-      <div class="user-name">${messegeData.name}</div>
+      <p class="user-name">${messegeData.name}</p>
       <a href="tel:" class="user-phone">${messegeData.phone}</a>
     </div>
     </div>
@@ -164,6 +173,20 @@ function createCard(messegeData) {
     </div>
     </div>`;
 }
+
+
+ 
+
+function createModalData(modalData) {
+  return `<div class="modal-window" data-id = "${modalData.id}">
+  <button id="closeModalBtn">&times;</button>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, natus!
+  Porro delectus quisquam quidem voluptate.
+</div>
+</div>`
+}
+
+
 
 //renderMessegeCards(str, cardMessegeList)
 
