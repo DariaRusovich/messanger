@@ -4,16 +4,22 @@ const reloadBtn = document.getElementById("reloadBtn");
 const allCount = document.getElementById("allCount");
 const unreadCount = document.getElementById("unreadCount");
 const searchForm = document.getElementById("searchForm");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const closeModalBtn = document.getElementById("closeModalBtn");
 
 //console.log(DATA);
 //console.log(cardData);
 
- //используется обычная функция для'this' (ссылается на контекст (searchForm))
+//используется обычная функция для'this' (ссылается на контекст (searchForm))
 searchForm.addEventListener("submit", function (e) {
   e.preventDefault(); //предотвратить дефолтное поведение
-  const query = this.search.value.trim().toLowerCase().split(' ').filter(word => !!word)
-  const searchFields = ['name', 'phone']
-  const filteredMessage = searchMessages(query, searchFields, cardsMessegeData)
+  const query = this.search.value
+    .trim()
+    .toLowerCase()
+    .split(" ")
+    .filter((word) => !!word);
+  const searchFields = ["name", "phone"];
+  const filteredMessage = searchMessages(query, searchFields, cardsMessegeData);
   console.log(searchMessages(query, searchFields, cardsMessegeData));
   //console.log(query);
   //console.log("submit");
@@ -21,25 +27,21 @@ searchForm.addEventListener("submit", function (e) {
   renderMessegeCards(createCardsHTML(filteredMessage), cardMessegeList);
 });
 
+function searchMessages(query, fields, messages) {
+  //параметры: (запрос, ключи(поля), массив сообщений)
 
-function searchMessages(query, fields, messages){    //параметры: (запрос, ключи(поля), массив сообщений)
-  
-  const filteredMessege = messages.filter( message => {
-    return query.every(word => {  //результат фильтра будет равен методу every(каждый) пробежавшемуся по словам в запросе(query)
-      return fields.some(field => {  //основная проверка
+  const filteredMessege = messages.filter((message) => {
+    return query.every((word) => {
+      //результат фильтра будет равен методу every(каждый) пробежавшемуся по словам в запросе(query)
+      return fields.some((field) => {
+        //основная проверка
         //console.log('itaration');
-        return message[field]?.trim()?.toLowerCase()?.includes(word)
-       
-      })        
-    })
-  })
-
-
-  return filteredMessege
+        return message[field]?.trim()?.toLowerCase()?.includes(word);
+      });
+    });
+  });
+  return filteredMessege;
 }
-
-
-
 
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
   hour: "2-digit",
@@ -71,6 +73,31 @@ cardMessegeList.addEventListener("click", (event) => {
     renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
   }
 });
+
+document.addEventListener("click", (event) => {
+  const userMessage = event.target.closest(".user");
+  if (userMessage) {
+    openModal();
+  } else if (event.target === modalBackdrop) {
+    closeModal();
+  }
+});
+closeModalBtn.addEventListener("click", (event) => {
+  closeModal();
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+
+function openModal() {
+  document.body.classList.add("show-modal");
+}
+function closeModal() {
+  document.body.classList.remove("show-modal");
+}
 
 // "id": 1,
 // "phone": "+63 (924) 979-2252",
