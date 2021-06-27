@@ -5,7 +5,7 @@ const allCount = document.getElementById("allCount");
 const unreadCount = document.getElementById("unreadCount");
 const searchForm = document.getElementById("searchForm");
 const modalBackdrop = document.getElementById("modalBackdrop");
-const closeModalBtn = document.getElementById("closeModalBtn");
+
 const modalWindow = document.getElementById("modalWindow");
 
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
@@ -78,14 +78,18 @@ cardMessegeList.addEventListener("click", (event) => {
 
 document.addEventListener("click", (event) => {
   const userMessage = event.target.closest(".user");
+  const closeModalBtn = document.getElementById("closeModalBtn");
   if (userMessage) {
     openModal();
   } else if (event.target === modalBackdrop) {
     closeModal();
   }
-});
-closeModalBtn.addEventListener("click", (event) => {
-  closeModal();
+  else if (closeModalBtn) {
+    closeModal();
+  }
+  else if (event.key === "Escape") {
+    closeModal();
+  }
 });
 
 document.addEventListener("keyup", (event) => {
