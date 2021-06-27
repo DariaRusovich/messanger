@@ -171,9 +171,9 @@ function createCard(messegeData) {
     </div>
     </div>`;
 }
-
+modalWindowData(modalWindow)
 function modalWindowData(modalData) {
-  modalWindow.innerHTML = createModalData(modalData);
+  modalWindow.querySelector('.card').innerHTML = createModalData(modalData);
  
 }
 
