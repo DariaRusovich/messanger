@@ -54,7 +54,6 @@ function searchMessages(query, fields, messages) {
   return filteredMessege;
 }
 
-
 reloadBtn.addEventListener("click", (event) => {
   cardsMessegeData = JSON.parse(DATA);
   renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
@@ -71,6 +70,7 @@ cardMessegeList.addEventListener("click", (event) => {
       cardsMessegeData.splice(messageIdx, 1);
     } else {
       message.seen = true;
+     
     }
     renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
   }
@@ -80,16 +80,16 @@ document.addEventListener("click", (event) => {
   const userMessage = event.target.closest(".user");
   const closeModalBtn = document.getElementById("closeModalBtn");
   if (userMessage) {
-    openModal();
+   
+    openModal()
   } else if (event.target === modalBackdrop) {
     closeModal();
-  }
-  else if (closeModalBtn) {
+  } else if (closeModalBtn) {
+    closeModal();
+  } else if (event.key === "Escape") {
     closeModal();
   }
-  else if (event.key === "Escape") {
-    closeModal();
-  }
+ 
 });
 
 document.addEventListener("keyup", (event) => {
@@ -100,6 +100,7 @@ document.addEventListener("keyup", (event) => {
 
 function openModal() {
   document.body.classList.add("show-modal");
+ 
 }
 function closeModal() {
   document.body.classList.remove("show-modal");
@@ -117,12 +118,6 @@ function closeModal() {
 // "date": "1609595510000",
 // "seen": false
 
-
-
-
-
-
-
 renderMessegeCards(createCardsHTML(cardsMessegeData), cardMessegeList);
 
 function createCardsHTML(cardsArray) {
@@ -139,7 +134,6 @@ function createCardsHTML(cardsArray) {
   });
   return cardsHTML;
 }
-
 
 //renderMessegeCards получает то, что вставлять(cardHTML) и получает элем куда вставлять (cardListElem)
 function renderMessegeCards(cardHTML, cardListElem) {
@@ -178,18 +172,24 @@ function createCard(messegeData) {
     </div>`;
 }
 
-
+function modalWindowData(modalData) {
+  modalWindow.innerHTML = createModalData(modalData);
  
-
-function createModalData(modalData) {
-  return `<div class="modal-window" data-id = "${modalData.id}">
-  <button id="closeModalBtn">&times;</button>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, natus!
-  Porro delectus quisquam quidem voluptate.
-</div>
-</div>`
 }
 
+function createModalData(modalData) {
+  return `  
+  <div class="card-header">
+    ${timeFormatter.format(modalData.date)}
+    ${dateFormatter.format(modalData.date)}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">${modalData.name} ${modalData.phone}</h5>
+    <p class="card-text">${modalData.text}</p>
+    <a href="#" class="btn btn-primary">Answer</a>
+  
+</div>`;
+}
 
 
 //renderMessegeCards(str, cardMessegeList)

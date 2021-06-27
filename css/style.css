@@ -53,8 +53,15 @@ body.show-modal>.modal-backdrop-bg{
 }
 .modal-window{
     margin: auto;
-    width: 600px;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
+    position: relative;
+  
+}
+.close-modal-btn{
+    border: 0;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    
+   
 }
