@@ -29,7 +29,7 @@ searchForm.addEventListener("submit", function (e) {
     .toLowerCase()
     .split(" ")
     .filter((word) => !!word);
-  const searchFields = ["name", "phone"];
+  const searchFields = ["name", "phone", 'text'];
   const filteredMessage = searchMessages(query, searchFields, cardsMessegeData);
   console.log(searchMessages(query, searchFields, cardsMessegeData));
   //console.log(query);
@@ -80,16 +80,14 @@ document.addEventListener("click", (event) => {
   const userMessage = event.target.closest(".user");
   const closeModalBtn = document.getElementById("closeModalBtn");
   if (userMessage) {
-   
     openModal()
+    modalWindowData(userMessage)
   } else if (event.target === modalBackdrop) {
     closeModal();
   } else if (closeModalBtn) {
     closeModal();
-  } else if (event.key === "Escape") {
-    closeModal();
-  }
- 
+  } 
+  
 });
 
 document.addEventListener("keyup", (event) => {
@@ -171,9 +169,9 @@ function createCard(messegeData) {
     </div>
     </div>`;
 }
-modalWindowData(modalWindow)
+
 function modalWindowData(modalData) {
-  modalWindow.querySelector('.card').innerHTML = createModalData(modalData);
+  modalWindow.innerHTML = createModalData(modalData);
  
 }
 
