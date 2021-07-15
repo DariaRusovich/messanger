@@ -54,7 +54,12 @@ body.show-modal>.modal-backdrop-bg{
 .modal-window{
     margin: auto;
     position: relative;
+    width: 50%;
   
+}
+.text-wrap{
+    max-height: 100px;
+    overflow-y: scroll;
 }
 .close-modal-btn{
     border: 0;

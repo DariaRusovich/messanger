@@ -77,17 +77,18 @@ cardMessegeList.addEventListener("click", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-  const userMessage = event.target.closest(".user");
+  const userMessage = event.target.closest(".card-wrapper");
   const closeModalBtn = document.getElementById("closeModalBtn");
+  //console.log(userMessage);
   if (userMessage) {
+    const userMassageId = userMessage.dataset.id
+    const userMessageData = cardsMessegeData.find(message => message.id === +userMassageId)
+    createModalDataHTML(userMessageData)
     openModal()
-    modalWindowData(userMessage)
-  } else if (event.target === modalBackdrop) {
-    closeModal();
-  } else if (closeModalBtn) {
+    //console.log(modalWindow);
+  } else if (event.target === modalBackdrop || (event.target === closeModalBtn)) {
     closeModal();
   } 
-  
 });
 
 document.addEventListener("keyup", (event) => {
@@ -129,16 +130,22 @@ function createCardsHTML(cardsArray) {
   });
   cardsArray.forEach((card) => {
     cardsHTML += createCard(card); //в каждую итерацию в cardsHTML каждый раз добавлять строку возвращенную функцией
+ //console.log(card); 
   });
   return cardsHTML;
 }
 
+
+
 //renderMessegeCards получает то, что вставлять(cardHTML) и получает элем куда вставлять (cardListElem)
 function renderMessegeCards(cardHTML, cardListElem) {
   cardListElem.innerHTML = cardHTML; // принимает два парам, куда вставлять и строку с html
+ 
+   
 }
 
 function createCard(messegeData) {
+ 
   return `<div class = "card-wrapper row text-center pt-4 pb-4 align-items-start ${
     !messegeData.seen ? "unseen" : ""
   }" data-id="${messegeData.id}">
@@ -170,23 +177,26 @@ function createCard(messegeData) {
     </div>`;
 }
 
-function modalWindowData(modalData) {
-  modalWindow.innerHTML = createModalData(modalData);
- 
+function createModalDataHTML(modalData) {
+  modalWindow.innerHTML = createModalData(modalData)
 }
 
+
 function createModalData(modalData) {
+  //console.log(modalData);
   return `  
   <div class="card-header">
     ${timeFormatter.format(modalData.date)}
+    
     ${dateFormatter.format(modalData.date)}
   </div>
   <div class="card-body">
     <h5 class="card-title">${modalData.name} ${modalData.phone}</h5>
-    <p class="card-text">${modalData.text}</p>
-    <a href="#" class="btn btn-primary">Answer</a>
+    <div class="text-wrap"><p class="card-text">${modalData.text}</p></div>
+    <a href="#" class="btn btn-primary mt-3">Answer</a>
   
 </div>`;
+
 }
 
 
@@ -195,3 +205,28 @@ function createModalData(modalData) {
 //a = [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 //a.sort((x, y) => Number(x) - Number(y));
 //console.log(a);
+
+
+// let [firstName, surname] = "Ilya Kantor".split(' ');
+// console.log(firstName, surname);
+
+let user = {
+  name: "John",
+  age: 30
+};
+
+// цикл по ключам и значениям
+for (let [key, value] of Object.entries(user)) {
+  console.log((`${key}:${value}`)); // name:John, затем age:30
+}
+
+
+let a = [5]
+console.log(a[0]);
+console.log(a[1]);
+
+
+let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+
+console.log(name)    
+console.log(surname) 
