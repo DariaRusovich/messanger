@@ -77,7 +77,7 @@ cardMessegeList.addEventListener("click", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-  const userMessage = event.target.closest(".card-wrapper");
+  const userMessage = event.target.closest(".user");
   const closeModalBtn = document.getElementById("closeModalBtn");
   //console.log(userMessage);
   if (userMessage) {
@@ -150,7 +150,7 @@ function createCard(messegeData) {
     !messegeData.seen ? "unseen" : ""
   }" data-id="${messegeData.id}">
     <div
-    class="user col-3 d-flex align-items-end"
+    class="user col-3 d-flex align-items-end" data-id="${messegeData.id}"
     >
     <img
     width = "1"
@@ -185,7 +185,7 @@ function createModalDataHTML(modalData) {
 function createModalData(modalData) {
   //console.log(modalData);
   return `  
-  <div class="card-header">
+  <div class="card-header" >
     ${timeFormatter.format(modalData.date)}
     
     ${dateFormatter.format(modalData.date)}
